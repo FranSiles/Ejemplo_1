@@ -5,6 +5,8 @@ public class Shoot : MonoBehaviour
     public GameObject Bullet;
     public float shootForce;
     public Transform shootPoint;
+    public ParticleSystem particleShoot;
+    public AudioSource audioShoot;
 
     void Update()
     {
@@ -12,10 +14,12 @@ public class Shoot : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
             {
-                Instantiate(Bullet, shootPoint.position,shootPoint.rotation).GetComponent<Rigidbody>().AddForce(shootPoint.forward * shootForce);
 
+                Instantiate(Bullet, shootPoint.position, shootPoint.rotation).GetComponent<Rigidbody>().AddForce(shootPoint.forward * shootForce,ForceMode.VelocityChange);
+                particleShoot.Play();
+                audioShoot.Play();
             }
-        }
 
+        }
     }
 }
